@@ -100,33 +100,39 @@ export default function Deck() {
   };
 
   const calculateMatches = () => {
-    if (Object.keys(userVotes).length === 0) {
+    const answeredBillsCount = Object.keys(userVotes).length;
+    if (answeredBillsCount === 0) {
       return null;
     }
 
-    const partyMatches: Record<string, { total: number; matches: number }> = {};
+    const partyMatches: Record<string, number> = {};
+    
+    // Initialize all unique parties found across all bills
     bills.forEach(b => {
       Object.keys(b.votes).forEach(p => {
-        if (!partyMatches[p]) partyMatches[p] = { total: 0, matches: 0 };
+        if (partyMatches[p] === undefined) partyMatches[p] = 0;
       });
     });
 
+    // Calculate matches
     bills.forEach(bill => {
       const userVote = userVotes[bill.bill_id];
       if (userVote) {
-        Object.entries(bill.votes).forEach(([party, partyVote]) => {
-          if (partyVote === "ΥΠΕΡ" || partyVote === "ΚΑΤΑ") {
-            partyMatches[party].total += 1;
-            if (partyVote === userVote) partyMatches[party].matches += 1;
+        // Iterate over all known parties
+        Object.keys(partyMatches).forEach(party => {
+          const partyVote = bill.votes[party];
+          // Strict match: if party did not vote or voted 'ΠΑΡΩΝ', they get 0 points for this bill
+          if (partyVote === userVote) {
+            partyMatches[party] += 1;
           }
         });
       }
     });
 
     return Object.entries(partyMatches)
-      .map(([party, stats]) => ({
+      .map(([party, matches]) => ({
         party,
-        percentage: stats.total > 0 ? Math.round((stats.matches / stats.total) * 100) : 0
+        percentage: Math.round((matches / answeredBillsCount) * 100)
       }))
       .sort((a, b) => b.percentage - a.percentage);
   };

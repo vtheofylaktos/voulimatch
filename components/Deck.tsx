@@ -15,26 +15,42 @@ export interface Bill {
   votes: Record<string, string>;
 }
 
+// Fisher-Yates Shuffle
+function shuffleArray<T>(array: T[]): T[] {
+  const newArray = [...array];
+  for (let i = newArray.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+  }
+  return newArray;
+}
+
 function DraggableCard({ bill, onSwipe, onVote }: { bill: Bill, onSwipe: (dir: "left" | "right") => void, onVote: (v: "ΥΠΕΡ" | "ΚΑΤΑ") => void }) {
   const [direction, setDirection] = useState<"left" | "right" | null>(null);
+  const [isDraggable, setIsDraggable] = useState(false);
   
   const x = useMotionValue(0);
   const rotate = useTransform(x, [-200, 200], [-15, 15]);
   const cardOpacity = useTransform(x, [-200, -100, 0, 100, 200], [0.5, 1, 1, 1, 0.5]);
 
   const handleDragEnd = (event: any, info: any) => {
+    if (!isDraggable) return;
+
     const offset = info.offset.x;
     const velocity = info.velocity.x;
 
     if (offset > 100 || velocity > 500) {
       setDirection("right");
-      onVote("ΥΠΕΡ");
       onSwipe("right");
     } else if (offset < -100 || velocity < -500) {
       setDirection("left");
-      onVote("ΚΑΤΑ");
       onSwipe("left");
     }
+  };
+
+  const handleVote = (v: "ΥΠΕΡ" | "ΚΑΤΑ") => {
+    onVote(v);
+    setIsDraggable(true);
   };
 
   return (
@@ -49,13 +65,13 @@ function DraggableCard({ bill, onSwipe, onVote }: { bill: Bill, onSwipe: (dir: "
         transition: { duration: 0.3 }
       }}
       style={{ x, rotate, opacity: cardOpacity }}
-      drag="x"
+      drag={isDraggable ? "x" : false}
       dragConstraints={{ left: 0, right: 0 }}
       dragElastic={0.8}
       onDragEnd={handleDragEnd}
-      whileTap={{ cursor: "grabbing" }}
+      whileTap={isDraggable ? { cursor: "grabbing" } : {}}
     >
-      <SwipeCard bill={bill} onVote={onVote} />
+      <SwipeCard bill={bill} onVote={handleVote} />
     </motion.div>
   );
 }
@@ -71,7 +87,11 @@ export default function Deck() {
   useEffect(() => {
     fetch('/api/bills')
       .then(res => res.json())
-      .then(data => setBills(data))
+      .then(data => {
+        if (Array.isArray(data)) {
+          setBills(shuffleArray(data));
+        }
+      })
       .catch(err => console.error("Failed to fetch bills:", err));
   }, []);
 
@@ -80,6 +100,10 @@ export default function Deck() {
   };
 
   const calculateMatches = () => {
+    if (Object.keys(userVotes).length === 0) {
+      return null;
+    }
+
     const partyMatches: Record<string, { total: number; matches: number }> = {};
     bills.forEach(b => {
       Object.keys(b.votes).forEach(p => {
@@ -133,9 +157,10 @@ export default function Deck() {
     }
   };
 
+  const matches = currentIndex >= bills.length && bills.length > 0 ? calculateMatches() : [];
+
   useEffect(() => {
-    if (currentIndex >= bills.length && bills.length > 0 && !hasLoggedTelemetry && ageGroup) {
-      const matches = calculateMatches();
+    if (currentIndex >= bills.length && bills.length > 0 && !hasLoggedTelemetry && ageGroup && matches && matches.length > 0) {
       const topMatch = matches[0];
       
       if (topMatch) {
@@ -151,7 +176,7 @@ export default function Deck() {
       }
       setHasLoggedTelemetry(true);
     }
-  }, [currentIndex, bills.length, hasLoggedTelemetry, ageGroup, userVotes]);
+  }, [currentIndex, bills.length, hasLoggedTelemetry, ageGroup, userVotes, matches]);
 
   if (bills.length === 0) {
     return <div className="flex justify-center items-center h-full text-slate-400">Φόρτωση νομοσχεδίων...</div>;
@@ -177,7 +202,21 @@ export default function Deck() {
   }
 
   if (currentIndex >= bills.length) {
-    const matches = calculateMatches();
+    if (!matches) {
+      return (
+        <div className="flex flex-col items-center justify-center h-full w-full max-w-md mx-auto text-slate-100 p-6 bg-slate-900 rounded-3xl shadow-2xl border border-slate-700/50">
+          <span className="text-5xl mb-4">😶</span>
+          <h2 className="text-2xl font-black text-rose-400 text-center mb-4">Δεν καταγράφηκε καμία ψήφος</h2>
+          <p className="text-slate-400 text-center mb-8">
+            Φαίνεται πως δεν ψήφισες σε κανένα νομοσχέδιο. Δοκίμασε ξανά!
+          </p>
+          <button onClick={() => { setCurrentIndex(0); setUserVotes({}); setHasLoggedTelemetry(false); }} className="px-8 py-3 bg-slate-800 hover:bg-slate-700 text-white rounded-full font-bold transition shadow-lg w-full">
+            Ξανά από την αρχή
+          </button>
+        </div>
+      );
+    }
+
     return (
       <div className="flex flex-col gap-4 w-full max-w-md mx-auto h-[750px]">
         <div ref={resultsRef} className="flex flex-col items-center justify-start w-full text-slate-100 p-6 bg-slate-900 rounded-3xl shadow-2xl border border-slate-700/50 overflow-y-auto custom-scrollbar">

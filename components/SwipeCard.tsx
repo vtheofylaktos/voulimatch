@@ -120,8 +120,7 @@ export default function SwipeCard({ bill, onVote }: SwipeCardProps) {
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.95 }}
               transition={{ duration: 0.2 }}
-              className="bg-slate-800 rounded-2xl p-4 shadow-inner flex flex-col gap-4 cursor-pointer"
-              onClick={() => setShowVotes(false)}
+              className="bg-slate-800 rounded-2xl p-4 shadow-inner flex flex-col gap-4"
             >
               <div className="text-center text-xs text-slate-400 mb-1 uppercase tracking-widest">
                 Πως ψήφισαν τα κόμματα
@@ -149,6 +148,9 @@ export default function SwipeCard({ bill, onVote }: SwipeCardProps) {
                      {conParties.length === 0 && <span className="text-sm opacity-60">Κανένα</span>}
                    </div>
                 </div>
+              </div>
+              <div className="text-center text-emerald-400 text-xs font-bold animate-pulse mt-2 uppercase tracking-widest">
+                👉 Κάνε Swipe για να συνεχίσεις 👈
               </div>
             </motion.div>
           )}

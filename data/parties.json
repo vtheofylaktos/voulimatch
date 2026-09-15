@@ -1,0 +1,22 @@
+[
+  {
+    "id": "nd",
+    "name": "Νέα Δημοκρατία",
+    "shortName": "ND"
+  },
+  {
+    "id": "syriza",
+    "name": "ΣΥΡΙΖΑ",
+    "shortName": "SYRIZA"
+  },
+  {
+    "id": "pasok",
+    "name": "ΠΑΣΟΚ - Κίνημα Αλλαγής",
+    "shortName": "PASOK"
+  },
+  {
+    "id": "kke",
+    "name": "Κομμουνιστικό Κόμμα Ελλάδας",
+    "shortName": "KKE"
+  }
+]

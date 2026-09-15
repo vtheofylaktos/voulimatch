@@ -1,0 +1,50 @@
+[
+  {
+    "party_id": "nd",
+    "event_id": "ev1",
+    "vote": "ΝΑΙ",
+    "source_url": "https://vouliwatch.gr/votewatch/voting/277ec7c7-df71-443c-8d5f-4c628cfd60e8#nd"
+  },
+  {
+    "party_id": "syriza",
+    "event_id": "ev1",
+    "vote": "ΟΧΙ",
+    "source_url": "https://vouliwatch.gr/votewatch/voting/277ec7c7-df71-443c-8d5f-4c628cfd60e8#syriza"
+  },
+  {
+    "party_id": "pasok",
+    "event_id": "ev1",
+    "vote": "ΠΑΡΩΝ",
+    "source_url": "https://vouliwatch.gr/votewatch/voting/277ec7c7-df71-443c-8d5f-4c628cfd60e8#pasok"
+  },
+  {
+    "party_id": "kke",
+    "event_id": "ev1",
+    "vote": "ΑΠΟΥΣΙΑ",
+    "source_url": "https://vouliwatch.gr/votewatch/voting/277ec7c7-df71-443c-8d5f-4c628cfd60e8#kke"
+  },
+  {
+    "party_id": "nd",
+    "event_id": "ev2",
+    "vote": "ΝΑΙ",
+    "source_url": "https://vouliwatch.gr/votewatch/voting/d908f84b-8cfd-4ab0-8021-e747899cd874#nd"
+  },
+  {
+    "party_id": "syriza",
+    "event_id": "ev2",
+    "vote": "ΟΧΙ",
+    "source_url": "https://vouliwatch.gr/votewatch/voting/d908f84b-8cfd-4ab0-8021-e747899cd874#syriza"
+  },
+  {
+    "party_id": "pasok",
+    "event_id": "ev2",
+    "vote": "ΠΑΡΩΝ",
+    "source_url": "https://vouliwatch.gr/votewatch/voting/d908f84b-8cfd-4ab0-8021-e747899cd874#pasok"
+  },
+  {
+    "party_id": "kke",
+    "event_id": "ev2",
+    "vote": "ΟΧΙ",
+    "source_url": "https://vouliwatch.gr/votewatch/voting/d908f84b-8cfd-4ab0-8021-e747899cd874#kke"
+  }
+]

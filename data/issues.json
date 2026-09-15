@@ -1,0 +1,62 @@
+[
+  {
+    "id": "politiko-systima",
+    "title": "Πολιτικό Σύστημα",
+    "description": "Θέματα για θεσμούς, κοινοβουλευτικές διαδικασίες και λογοδοσία.",
+    "source_url": "https://vouliwatch.gr/votewatch?topic=politiko_systima"
+  },
+  {
+    "id": "oikonomia",
+    "title": "Οικονομία",
+    "description": "Θέματα για φορολογία, αγορά και οικονομική πολιτική.",
+    "source_url": "https://vouliwatch.gr/votewatch?topic=oikonomia"
+  },
+  {
+    "id": "paideia-ereuna",
+    "title": "Παιδεία • Έρευνα",
+    "description": "Θέματα για σχολεία, πανεπιστήμια, έρευνα και πρόσβαση στη γνώση.",
+    "source_url": "https://vouliwatch.gr/ask?topic=paideia-ereuna"
+  },
+  {
+    "id": "enoikia-stegasi",
+    "title": "Ενοίκια • Στέγαση",
+    "description": "Θέματα για ενοίκια, πρόσβαση σε κατοικία και κόστος στέγασης.",
+    "source_url": "https://vouliwatch.gr/ask?topic=enoikia-stegasi"
+  },
+  {
+    "id": "asfalistiko-ergasia",
+    "title": "Ασφαλιστικό • Εργασία",
+    "description": "Θέματα για εργασία, ασφαλιστικό και συνθήκες απασχόλησης.",
+    "source_url": "https://vouliwatch.gr/ask?topic=asfalistiko-ergasia"
+  },
+  {
+    "id": "ygeia-pronoia",
+    "title": "Υγεία • Πρόνοια",
+    "description": "Θέματα για πρόσβαση στην υγεία, πρόνοια και κοινωνική στήριξη.",
+    "source_url": "https://vouliwatch.gr/ask?topic=ygeia-pronoia"
+  },
+  {
+    "id": "psifiaki-politiki",
+    "title": "Ψηφιακή Πολιτική",
+    "description": "Θέματα για ψηφιακές υπηρεσίες, τεχνολογία και τεχνητή νοημοσύνη.",
+    "source_url": "https://vouliwatch.gr/ask?topic=psifiaki-politiki"
+  },
+  {
+    "id": "dikaiosyni-diafaneia-dikaiomata",
+    "title": "Δικαιοσύνη • Διαφάνεια • Δικαιώματα",
+    "description": "Θέματα για λογοδοσία, θεσμούς, δικαιώματα και διαφάνεια.",
+    "source_url": "https://vouliwatch.gr/ask?topic=dikaiosyni-diafaneia-dikaiomata"
+  },
+  {
+    "id": "oikonomia",
+    "title": "Οικονομία",
+    "description": "Θέματα για οικονομία, εισόδημα, φορολογία και ακρίβεια.",
+    "source_url": "https://vouliwatch.gr/ask?topic=oikonomia"
+  },
+  {
+    "id": "ypodomes-metafores",
+    "title": "Υποδομές • Μεταφορές",
+    "description": "Θέματα για μετακινήσεις, δημόσιες υποδομές και ασφάλεια στο δίκτυο.",
+    "source_url": "https://vouliwatch.gr/ask?topic=ypodomes-metafores"
+  }
+]

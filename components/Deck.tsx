@@ -140,7 +140,8 @@ export default function Deck() {
   const handleShare = async () => {
     if (!resultsRef.current) return;
     try {
-      const dataUrl = await htmlToImage.toJpeg(resultsRef.current, { quality: 0.95, backgroundColor: '#020617' });
+      // Use black background for share image
+      const dataUrl = await htmlToImage.toJpeg(resultsRef.current, { quality: 0.95, backgroundColor: '#000000' });
       
       if (navigator.share) {
         const res = await fetch(dataUrl);
@@ -185,19 +186,19 @@ export default function Deck() {
   }, [currentIndex, bills.length, hasLoggedTelemetry, ageGroup, userVotes, matches]);
 
   if (bills.length === 0) {
-    return <div className="flex justify-center items-center h-full text-slate-400">Φόρτωση νομοσχεδίων...</div>;
+    return <div className="flex justify-center items-center h-full text-zinc-500 font-medium">Φόρτωση...</div>;
   }
 
   if (!ageGroup) {
     return (
-      <div className="flex flex-col items-center justify-center h-full w-full max-w-md mx-auto text-slate-100 p-8 bg-slate-900 rounded-3xl shadow-2xl border border-slate-700/50">
-        <h2 className="text-3xl font-black mb-8 text-center bg-gradient-to-r from-blue-400 to-emerald-400 bg-clip-text text-transparent">Ποια είναι η ηλικία σου;</h2>
-        <div className="flex flex-col gap-4 w-full">
+      <div className="flex flex-col items-center justify-center h-full w-full max-w-md mx-auto text-zinc-50 p-8 bg-zinc-900 rounded-3xl shadow-2xl border border-zinc-800">
+        <h2 className="text-2xl font-black mb-8 text-center text-white tracking-tight">Επίλεξε ηλικιακή ομάδα</h2>
+        <div className="flex flex-col gap-3 w-full">
           {["17-24", "25-34", "35+"].map(age => (
             <button
               key={age}
               onClick={() => setAgeGroup(age)}
-              className="w-full py-4 bg-slate-800 hover:bg-slate-700 text-xl font-bold rounded-2xl border border-slate-600 transition"
+              className="w-full py-4 bg-zinc-950 hover:bg-zinc-800 text-lg font-bold rounded-2xl border border-zinc-800 transition-colors"
             >
               {age}
             </button>
@@ -210,14 +211,14 @@ export default function Deck() {
   if (currentIndex >= bills.length) {
     if (!matches) {
       return (
-        <div className="flex flex-col items-center justify-center h-full w-full max-w-md mx-auto text-slate-100 p-6 bg-slate-900 rounded-3xl shadow-2xl border border-slate-700/50">
+        <div className="flex flex-col items-center justify-center h-full w-full max-w-md mx-auto text-zinc-50 p-8 bg-zinc-900 rounded-3xl shadow-2xl border border-zinc-800">
           <span className="text-5xl mb-4">😶</span>
-          <h2 className="text-2xl font-black text-rose-400 text-center mb-4">Δεν καταγράφηκε καμία ψήφος</h2>
-          <p className="text-slate-400 text-center mb-8">
-            Φαίνεται πως δεν ψήφισες σε κανένα νομοσχέδιο. Δοκίμασε ξανά!
+          <h2 className="text-2xl font-black text-white text-center mb-4 tracking-tight">Δεν καταγράφηκε ψήφος</h2>
+          <p className="text-zinc-500 text-center mb-8 text-sm">
+            Δεν καταγράψαμε καμία ψήφο σου. Δοκίμασε ξανά.
           </p>
-          <button onClick={() => { setCurrentIndex(0); setUserVotes({}); setHasLoggedTelemetry(false); }} className="px-8 py-3 bg-slate-800 hover:bg-slate-700 text-white rounded-full font-bold transition shadow-lg w-full">
-            Ξανά από την αρχή
+          <button onClick={() => { setCurrentIndex(0); setUserVotes({}); setHasLoggedTelemetry(false); }} className="px-8 py-4 bg-zinc-800 hover:bg-zinc-700 text-white rounded-full font-bold transition-colors w-full text-sm">
+            ΕΠΑΝΕΚΚΙΝΗΣΗ
           </button>
         </div>
       );
@@ -225,36 +226,36 @@ export default function Deck() {
 
     return (
       <div className="flex flex-col gap-4 w-full max-w-md mx-auto h-[750px]">
-        <div ref={resultsRef} className="flex flex-col items-center justify-start w-full text-slate-100 p-6 bg-slate-900 rounded-3xl shadow-2xl border border-slate-700/50 overflow-y-auto custom-scrollbar">
-          <span className="text-5xl mb-4">🎯</span>
-          <h2 className="text-2xl font-black bg-gradient-to-r from-emerald-400 to-blue-500 bg-clip-text text-transparent text-center mb-2">Το Προφίλ σου</h2>
-          <div className="w-full space-y-4 mt-6">
+        <div ref={resultsRef} className="flex flex-col items-center justify-start w-full text-zinc-50 p-6 bg-zinc-900 rounded-3xl shadow-2xl border border-zinc-800 overflow-y-auto custom-scrollbar">
+          <span className="text-4xl mb-4">🏛️</span>
+          <h2 className="text-2xl font-extrabold text-white text-center mb-1 tracking-tight">Το Προφίλ σου</h2>
+          <div className="w-full space-y-3 mt-6">
             {matches.map((match, index) => (
-              <div key={match.party} className="bg-slate-800 p-4 rounded-2xl border border-slate-700/50">
+              <div key={match.party} className="bg-zinc-950 p-4 rounded-2xl border border-zinc-800/50">
                 <div className="flex justify-between items-center mb-2">
-                  <span className="font-bold tracking-wide text-sm">{match.party.replace("_", " ")}</span>
-                  <span className="font-black text-blue-400">{match.percentage}%</span>
+                  <span className="font-bold tracking-tight text-sm text-zinc-300">{match.party.replace("_", " ")}</span>
+                  <span className="font-black text-indigo-400">{match.percentage}%</span>
                 </div>
-                <div className="w-full h-2 bg-slate-950 rounded-full overflow-hidden">
+                <div className="w-full h-1.5 bg-black rounded-full overflow-hidden">
                   <motion.div 
                     initial={{ width: 0 }}
                     animate={{ width: `${match.percentage}%` }}
                     transition={{ duration: 1, delay: index * 0.1 }}
-                    className={`h-full rounded-full ${match.percentage >= 70 ? 'bg-emerald-500' : match.percentage >= 40 ? 'bg-blue-500' : 'bg-rose-500'}`}
+                    className={`h-full rounded-full ${match.percentage >= 70 ? 'bg-indigo-500' : match.percentage >= 40 ? 'bg-indigo-700' : 'bg-red-900'}`}
                   />
                 </div>
               </div>
             ))}
           </div>
           
-          <div className="mt-8 text-center text-xs text-slate-500">VouliMatch</div>
+          <div className="mt-8 text-center text-xs font-bold tracking-widest text-zinc-600 uppercase">VouliMatch</div>
         </div>
         
-        <button onClick={handleShare} className="px-8 py-4 bg-gradient-to-r from-pink-500 to-orange-400 hover:opacity-90 text-white rounded-full font-bold transition shadow-lg w-full flex justify-center items-center gap-2">
-          📸 Μοιράσου το στο Instagram
+        <button onClick={handleShare} className="px-8 py-4 bg-indigo-600 hover:bg-indigo-500 text-white rounded-full font-bold transition-colors shadow-lg w-full flex justify-center items-center gap-2 text-sm tracking-wide">
+          ΜΟΙΡΑΣΟΥ ΤΟ 📸
         </button>
-        <button onClick={() => { setCurrentIndex(0); setUserVotes({}); setHasLoggedTelemetry(false); }} className="px-8 py-3 bg-slate-800 hover:bg-slate-700 text-white rounded-full font-bold transition shadow-lg w-full">
-          Ξανά από την αρχή
+        <button onClick={() => { setCurrentIndex(0); setUserVotes({}); setHasLoggedTelemetry(false); }} className="px-8 py-3 bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-zinc-400 hover:text-white rounded-full font-bold transition-colors w-full text-xs tracking-widest uppercase">
+          Επανεκκίνηση
         </button>
       </div>
     );
@@ -265,11 +266,11 @@ export default function Deck() {
   return (
     <div className="w-full max-w-md mx-auto flex flex-col h-[700px]">
       <div className="mb-6 flex flex-col gap-2 px-2">
-        <div className="flex justify-between text-xs font-bold text-slate-400 uppercase tracking-widest">
+        <div className="flex justify-between text-[10px] font-bold text-zinc-600 uppercase tracking-widest">
           <span>Πρόοδος</span><span>{currentIndex} / {bills.length}</span>
         </div>
-        <div className="w-full h-1.5 bg-slate-800 rounded-full overflow-hidden">
-          <div className="h-full bg-gradient-to-r from-emerald-400 to-blue-500 transition-all duration-300 ease-out" style={{ width: `${progress}%` }} />
+        <div className="w-full h-1 bg-zinc-900 rounded-full overflow-hidden">
+          <div className="h-full bg-indigo-500 transition-all duration-300 ease-out" style={{ width: `${progress}%` }} />
         </div>
       </div>
 
@@ -289,7 +290,7 @@ export default function Deck() {
               initial={{ scale: 0.9, opacity: 0, y: 40 }}
               animate={{ scale: 0.95, opacity: 0.5, y: 20 }}
             >
-              <div className="w-full h-full bg-slate-900 rounded-3xl opacity-50 shadow-xl border border-slate-700/50" />
+              <div className="w-full h-full bg-zinc-900 rounded-3xl opacity-50 shadow-2xl border border-zinc-800" />
             </motion.div>
           )}
         </AnimatePresence>

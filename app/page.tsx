@@ -5,12 +5,12 @@ import Deck from "@/components/Deck";
 
 export default function Page() {
   return (
-    <main className="min-h-screen bg-slate-950 flex flex-col items-center pt-8 px-4 font-sans text-slate-100 pb-12">
+    <main className="min-h-screen bg-black flex flex-col items-center pt-8 px-4 font-sans text-zinc-50 pb-12 selection:bg-indigo-500 selection:text-white">
       <div className="w-full max-w-md flex flex-col gap-8 h-full">
         {/* Header / Decision Input */}
-        <div className="flex flex-col gap-4">
-          <h1 className="text-3xl font-black bg-gradient-to-r from-emerald-400 to-blue-500 bg-clip-text text-transparent text-center">
-            VouliMatch
+        <div className="flex flex-col gap-2">
+          <h1 className="text-3xl font-extrabold tracking-tighter text-white text-center">
+            VouliMatch<span className="text-indigo-500">.</span>
           </h1>
         </div>
 
@@ -19,7 +19,7 @@ export default function Page() {
           <Deck />
         </div>
         
-        <p className="text-center text-xs text-slate-600 mt-4 font-medium uppercase tracking-widest">
+        <p className="text-center text-xs text-zinc-600 mt-4 font-medium uppercase tracking-widest">
           Swipe δεξιά ή αριστερά για το επόμενο
         </p>
       </div>

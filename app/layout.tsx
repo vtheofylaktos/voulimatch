@@ -18,8 +18,8 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: "VouliMatch",
-  description: "Μάθε με ποιο κόμμα ταιριάζεις περισσότερο βάσει ψηφοφοριών.",
+  title: "VouliMatch | Μάθε τι πραγματικά ψηφίζεις",
+  description: "Tinder για νομοσχέδια. Κάνε swipe στα πιο κρίσιμα νομοσχέδια της Βουλής και δες με ποιο κόμμα ταυτίζεσαι πραγματικά.",
   manifest: "/manifest.json",
   appleWebApp: {
     capable: true,
